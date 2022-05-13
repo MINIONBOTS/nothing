@@ -15,5 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-    - run: docker build . --tag nothing:latest
-    - run: docker push ghcr.io/minionbots/nothing/api:latest
+      run: docker build . --tag nothing:latest 
+    - name: Push the Docker image
+      run: docker push ghcr.io/minionbots/nothing/api:latest
