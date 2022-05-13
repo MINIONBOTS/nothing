@@ -27,5 +27,5 @@ jobs:
       with:
         context: .
         push: true
-        tags: ghcr.io/${{ lowercase(github.repository) }}
+        tags: ghcr.io/(${{ github.repository }}).toLowerCase()
           
