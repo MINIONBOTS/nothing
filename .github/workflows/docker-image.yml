@@ -11,7 +11,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    permissions:
+      packages: write
     steps:
     - uses: actions/checkout@v3
     - name: Login to GitHub Container Registry
@@ -20,10 +21,11 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
           
-    - name: Build the Docker image
-      run: docker build . --tag nothing:latest 
-    - name: Tag the Docker image again!? silly shit
-      run: docker tag nothing:latest ghcr.io/minionbots/nothing/api:latest
-    - name: Push the Docker image
-      run: docker push ghcr.io/minionbots/nothing/api:latest
